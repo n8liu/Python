@@ -1,4 +1,25 @@
+""" Linked List and Double Linked List Implementation File
+
+contains:
+Class for Linked List,
+iterate, insert and remove methods for Linked List
+
+Class for Doubly Linked List,
+iterate, insert and remove methods for doubly linked list
+"""
+
 class Node:
+    """ Node Class:
+    methods:
+    __init__: used for both singly and doubly linked lists
+    __repr__: print(Node("a")) prints a
+
+    examples:
+    declare a node:
+    >>> Node("a")
+    a
+
+    """
     def __init__(self, data):
         self.data = data
         self.next = None
@@ -8,12 +29,32 @@ class Node:
         return self.data
 
 class LinkedList:
-    """
+    """ Singly Linked List Class:
+
+    examples:
+    initialization: (must take a list or string)
+    >>> linked_list = LinkedList(["a","b","c"])
+    >>> linked_list
+    a -> b -> c -> None
+
+    remove a node:
+    >>> linked_list.remove("c")
+    >>> linked_list
+    a -> b -> None
+
+    iterate through a singly linked list
+    >>> for elem in linked_list: 
+    ...     if elem.data == "b":
+    ...         linked_list.add_after("b", Node("d"))
+    ...
+    >>> linked_list
+    a -> b -> d -> None
+
     """
     def __init__(self, nodes=None):
         self.first = None
         if nodes is not None:
-            node = Node(data=nodes.pop(0))
+            node = Node(data=nodes[0])
             self.first = node
             for elem in nodes:
                 node.next = Node(data=elem)
@@ -21,12 +62,12 @@ class LinkedList:
     
     def __repr__(self):
         node = self.first
-        nodes = ['Singly Linked List:']
+        nodes = []
         while node is not None:
             nodes.append(node.data)
             node = node.next
         nodes.append("None")
-        return " -> ".join(nodes)
+        return " -> ".join(nodes[1:])
 
     def __iter__(self):
         node = self.first
@@ -57,7 +98,7 @@ class LinkedList:
                 return
         raise Exception("Node with data '%s' not found" % target_node_data)
 
-    def remove_node(self, target_node_data):
+    def remove(self, target_node_data):
         if not self.first:
             raise Exception("linked list is empty")
 
